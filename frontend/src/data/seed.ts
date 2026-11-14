@@ -352,6 +352,20 @@ export const SEED_ROWS: Record<string, EntryRow[]> = {
       "最大等待秒": "失败重试样例3",
       "可重试异常": "失败重试样例3",
       "失败转存": "失败重试样例3"
+    },
+    {
+      "id": 4,
+      "status": "已启用",
+      "pending": false,
+      "abnormal": false,
+      "策略编号": "RETR-0004",
+      "关联任务": "JOB-21",
+      "最大重试次数": "3",
+      "退避算法": "指数退避",
+      "初始等待秒": "5",
+      "最大等待秒": "60",
+      "可重试异常": "HTTP 5xx、超时",
+      "失败转存": "failure-archive/JOB-21"
     }
   ],
   "extractor": [

@@ -9,6 +9,8 @@ const Schedule = () => import('@/views/schedule/index.vue')
 const Antibot = () => import('@/views/antibot/index.vue')
 const Ratelimit = () => import('@/views/ratelimit/index.vue')
 const Retry = () => import('@/views/retry/index.vue')
+const RetryArchive = () => import('@/views/retry/archive.vue')
+const RetryLedger = () => import('@/views/retry/ledger.vue')
 const Extractor = () => import('@/views/extractor/index.vue')
 const Pipeline = () => import('@/views/pipeline/index.vue')
 const Validator = () => import('@/views/validator/index.vue')
@@ -32,6 +34,8 @@ const router = createRouter({
     { path: '/antibot', name: 'antibot', component: Antibot },
     { path: '/ratelimit', name: 'ratelimit', component: Ratelimit },
     { path: '/retry', name: 'retry', component: Retry },
+    { path: '/retry/archive', name: 'retry-archive', component: RetryArchive },
+    { path: '/retry/ledger', name: 'retry-ledger', component: RetryLedger },
     { path: '/extractor', name: 'extractor', component: Extractor },
     { path: '/pipeline', name: 'pipeline', component: Pipeline },
     { path: '/validator', name: 'validator', component: Validator },

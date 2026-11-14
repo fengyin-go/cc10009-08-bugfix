@@ -15,6 +15,9 @@
         <strong class="stat-value">{{ card.value }}</strong>
       </article>
     </div>
+    <p class="muted">
+      概览与失败重试列表、失败转存清单、失败转存台账读取的是同一份重试记录。
+    </p>
     <table class="data-table">
       <thead>
         <tr><th>业务模块</th><th>今日新增</th><th>待处理</th><th>异常量</th></tr>
@@ -35,9 +38,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 import { loadOverview } from '@/api/local-service'
+import { subscribeDataChanges } from '@/data/local-store'
 import type { OverviewResult } from '@/data/types'
 
 const cards = ref<OverviewResult['cards']>([])
@@ -49,5 +53,24 @@ function refresh() {
   moduleRows.value = payload.modules
 }
 
-onMounted(refresh)
+let unsubscribe: (() => void) | null = null
+
+onMounted(() => {
+  refresh()
+  // 另一个标签页修改后，概览跟着同一份数据一起刷新，不停留在旧数字上。
+  unsubscribe = subscribeDataChanges(refresh)
+})
+
+onBeforeUnmount(() => {
+  unsubscribe?.()
+  unsubscribe = null
+})
 </script>
+
+<style scoped>
+.muted {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0 0 10px;
+}
+</style>
